@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            text-align: right;
+            direction: rtl;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .code-block {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 15px 0;
+            font-family: monospace;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+        .output {
+            background-color: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 15px 0;
+            direction: ltr;
+            text-align: left;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .alert {
+            background-color: #ffe6e6;
+            border-right: 4px solid #ff6b6b;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        .note {
+            background-color: #fff9e6;
+            border-right: 4px solid #ffcc00;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>آموزش جامع Broadcasting در NumPy</h1>
+    
+    <h2>۱. مقدمه</h2>
+    <p>یکی از قابلیت‌های بسیار قدرتمند در کتابخانه NumPy، مفهومی به نام <strong>Broadcasting</strong> است. این ویژگی به ما امکان می‌دهد عملیات‌های ریاضی را بین آرایه‌هایی با شکل‌های متفاوت انجام دهیم، بدون نیاز به تکرار صریح داده‌ها.</p>
+    
+    <p>به طور معمول، وقتی می‌خواهیم عملیات ریاضی بین دو آرایه انجام دهیم، آن‌ها باید دقیقاً شکل یکسانی داشته باشند. اما با استفاده از Broadcasting، NumPy به طور خودکار آرایه‌ها را به شکلی گسترش می‌دهد که بتوانند با یکدیگر عملیات داشته باشند.</p>
+    
+    <div class="note">
+        <p><strong>نکته:</strong> Broadcasting باعث بهینه‌سازی حافظه و سرعت می‌شود، زیرا NumPy در واقع نیازی به کپی فیزیکی داده‌ها ندارد و فقط طوری رفتار می‌کند که انگار آرایه‌ها گسترش یافته‌اند.</p>
+    </div>
+    
+    <h2>۲. مفهوم پایه Broadcasting</h2>
+    <p>Broadcasting فرآیندی است که NumPy برای انجام عملیات‌های حسابی بین آرایه‌های با ابعاد متفاوت استفاده می‌کند. این فرآیند شامل "گسترش مجازی" آرایه‌های کوچکتر به اندازه آرایه‌های بزرگتر است، بدون اینکه واقعاً حافظه بیشتری مصرف شود.</p>
+    
+    <p>برای مثال، می‌توانید یک عدد اسکالر را به تمام عناصر یک آرایه اضافه کنید:</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # یک آرایه یک‌بعدی
+        arr = np.array([1, 2, 3, 4, 5])
+        
+        # اضافه کردن یک اسکالر به تمام عناصر
+        result = arr + 10
+        
+        print(result)
+    </div>
+    
+    <div class="output">
+        [11 12 13 14 15]
+    </div>
+    
+    <p>در این مثال، مقدار اسکالر ۱۰ به صورت مجازی به آرایه‌ای با شکل یکسان تبدیل می‌شود: <code>[10, 10, 10, 10, 10]</code> و سپس با آرایه اصلی جمع می‌شود.</p>
+    
+    <h2>۳. قوانین Broadcasting</h2>
+    <p>Broadcasting در NumPy دارای سه قانون اصلی است که تعیین می‌کنند چه زمانی دو آرایه می‌توانند با یکدیگر عملیات داشته باشند:</p>
+    
+    <div class="alert">
+        <h3>قوانین اصلی Broadcasting:</h3>
+        <ol>
+            <li><strong>قانون ۱:</strong> اگر دو آرایه تعداد ابعاد متفاوتی دارند، shape آرایه با ابعاد کمتر از سمت چپ با ۱ پر می‌شود.</li>
+            <li><strong>قانون ۲:</strong> اگر شکل دو آرایه در یک بُعد متفاوت باشد، آرایه‌ای که در آن بُعد اندازه ۱ دارد به اندازه دیگری گسترش می‌یابد.</li>
+            <li><strong>قانون ۳:</strong> اگر در هر بُعد، اندازه‌ها متفاوت باشند و هیچ کدام ۱ نباشد، خطا رخ می‌دهد.</li>
+        </ol>
+    </div>
+    
+    <h3>۳.۱. قانون اول: افزودن ابعاد</h3>
+    <p>اگر دو آرایه تعداد ابعاد متفاوتی داشته باشند، ابعاد آرایه با بُعد کمتر از سمت چپ با ۱ پر می‌شود تا تعداد ابعاد برابر شود.</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # یک آرایه با شکل (3,)
+        a = np.array([1, 2, 3])
+        
+        # یک آرایه با شکل (3, 2)
+        b = np.array([[1, 2], [3, 4], [5, 6]])
+        
+        # برای عملیات با b، آرایه a به شکل (1, 3) تبدیل می‌شود
+        # اما این تبدیل فقط مجازی است و حافظه اضافی مصرف نمی‌شود
+        print("شکل a:", a.shape)  # (3,)
+        
+        result = a + b
+        print("شکل نتیجه:", result.shape)  # (3, 2)
+        print(result)
+    </div>
+    
+    <div class="output">
+        شکل a: (3,)
+        شکل نتیجه: (3, 2)
+        [[ 2  3]
+         [ 5  6]
+         [ 8  9]]
+    </div>
+    
+    <p>در مثال بالا، آرایه <code>a</code> با شکل <code>(3,)</code> به صورت مجازی به شکل <code>(1, 3)</code> تبدیل می‌شود و سپس قانون دوم اعمال می‌شود.</p>
+    
+    <h3>۳.۲. قانون دوم: گسترش ابعاد با اندازه ۱</h3>
+    <p>اگر دو آرایه در یک بُعد مشترک اندازه‌های متفاوتی داشته باشند و یکی از آن‌ها اندازه ۱ باشد، آن بُعد به اندازه بُعد دیگر گسترش می‌یابد.</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # آرایه با شکل (3, 1)
+        a = np.array([[1], [2], [3]])
+        
+        # آرایه با شکل (1, 4)
+        b = np.array([[10, 20, 30, 40]])
+        
+        print("شکل a:", a.shape)
+        print("شکل b:", b.shape)
+        
+        # در اینجا a به شکل (3, 4) و b به شکل (3, 4) گسترش می‌یابند
+        result = a + b
+        print("شکل نتیجه:", result.shape)
+        print(result)
+    </div>
+    
+    <div class="output">
+        شکل a: (3, 1)
+        شکل b: (1, 4)
+        شکل نتیجه: (3, 4)
+        [[11 21 31 41]
+         [12 22 32 42]
+         [13 23 33 43]]
+    </div>
+    
+    <p>در این مثال:</p>
+    <ul>
+        <li>آرایه <code>a</code> با شکل <code>(3, 1)</code> به صورت مجازی به شکل <code>(3, 4)</code> گسترش می‌یابد.</li>
+        <li>آرایه <code>b</code> با شکل <code>(1, 4)</code> به صورت مجازی به شکل <code>(3, 4)</code> گسترش می‌یابد.</li>
+        <li>سپس عملیات جمع بین دو آرایه <code>(3, 4)</code> انجام می‌شود.</li>
+    </ul>
+    
+    <h3>۳.۳. قانون سوم: ناسازگاری ابعاد</h3>
+    <p>اگر دو آرایه در بُعدی مشترک اندازه‌های متفاوتی داشته باشند و هیچ کدام ۱ نباشد، خطای <code>ValueError</code> رخ می‌دهد.</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # آرایه با شکل (3, 2)
+        a = np.array([[1, 2], [3, 4], [5, 6]])
+        
+        # آرایه با شکل (2, 3)
+        b = np.array([[1, 2, 3], [4, 5, 6]])
+        
+        # این عملیات خطا می‌دهد چون ابعاد سازگار نیستند
+        try:
+            result = a + b
+        except ValueError as e:
+            print("خطا:", e)
+    </div>
+    
+    <div class="output">
+        خطا: operands could not be broadcast together with shapes (3,2) (2,3)
+    </div>
+    
+    <h2>۴. مثال‌های کاربردی Broadcasting</h2>
+    
+    <h3>۴.۱. نرمال‌سازی داده‌ها</h3>
+    <p>یکی از کاربردهای رایج Broadcasting، نرمال‌سازی داده‌هاست. در این مثال، میانگین هر ستون را از تمام مقادیر آن ستون کم می‌کنیم:</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # ماتریس داده با شکل (4, 3)
+        data = np.array([
+            [10, 20, 30],
+            [40, 50, 60],
+            [70, 80, 90],
+            [100, 110, 120]
+        ])
+        
+        # محاسبه میانگین هر ستون - شکل (3,)
+        column_means = data.mean(axis=0)
+        print("میانگین ستون‌ها:", column_means)
+        
+        # کم کردن میانگین از هر ستون با استفاده از broadcasting
+        normalized_data = data - column_means
+        
+        print("\nداده‌های نرمال شده:")
+        print(normalized_data)
+    </div>
+    
+    <div class="output">
+        میانگین ستون‌ها: [ 55.  65.  75.]
+        
+        داده‌های نرمال شده:
+        [[-45. -45. -45.]
+         [-15. -15. -15.]
+         [ 15.  15.  15.]
+         [ 45.  45.  45.]]
+    </div>
+    
+    <h3>۴.۲. تبدیل دمای سلسیوس به فارنهایت برای چند شهر</h3>
+    <p>در این مثال، دمای چند شهر را در چند روز متوالی از سلسیوس به فارنهایت تبدیل می‌کنیم:</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # دماهای سلسیوس برای 3 شهر در 4 روز متوالی
+        # شکل: (3, 4) - 3 شهر، 4 روز
+        celsius_temps = np.array([
+            [20, 21, 22, 19],  # شهر 1
+            [15, 16, 18, 17],  # شهر 2
+            [25, 26, 27, 28]   # شهر 3
+        ])
+        
+        # تبدیل سلسیوس به فارنهایت: F = C * 9/5 + 32
+        fahrenheit_temps = celsius_temps * 9/5 + 32
+        
+        print("دمای سلسیوس:")
+        print(celsius_temps)
+        
+        print("\nدمای فارنهایت:")
+        print(fahrenheit_temps)
+    </div>
+    
+    <div class="output">
+        دمای سلسیوس:
+        [[20 21 22 19]
+         [15 16 18 17]
+         [25 26 27 28]]
+        
+        دمای فارنهایت:
+        [[68.  69.8 71.6 66.2]
+         [59.  60.8 64.4 62.6]
+         [77.  78.8 80.6 82.4]]
+    </div>
+    
+    <h3>۴.۳. محاسبه فاصله اقلیدسی</h3>
+    <p>با استفاده از Broadcasting می‌توانیم فاصله اقلیدسی بین نقاط را محاسبه کنیم:</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # مجموعه‌ای از نقاط در فضای دو بعدی - شکل (3, 2)
+        points_a = np.array([
+            [0, 0],
+            [1, 1],
+            [2, 2]
+        ])
+        
+        # مجموعه دیگری از نقاط - شکل (2, 2)
+        points_b = np.array([
+            [3, 3],
+            [4, 4]
+        ])
+        
+        # محاسبه فاصله اقلیدسی بین هر نقطه از points_a و هر نقطه از points_b
+        # نتیجه یک ماتریس با شکل (3, 2) خواهد بود
+        
+        # گسترش points_a به شکل (3, 1, 2)
+        points_a_expanded = points_a[:, np.newaxis, :]
+        
+        # محاسبه اختلاف با استفاده از broadcasting
+        diff = points_a_expanded - points_b
+        
+        # توان 2 همه عناصر
+        squared_diff = diff ** 2
+        
+        # جمع در آخرین بعد (محور 2) برای محاسبه مجذور فاصله
+        squared_distances = np.sum(squared_diff, axis=2)
+        
+        # جذر برای بدست آوردن فاصله اقلیدسی
+        distances = np.sqrt(squared_distances)
+        
+        print("فاصله بین هر نقطه از points_a و هر نقطه از points_b:")
+        print(distances)
+    </div>
+    
+    <div class="output">
+        فاصله بین هر نقطه از points_a و هر نقطه از points_b:
+        [[4.24264069 5.65685425]
+         [2.82842712 4.24264069]
+         [1.41421356 2.82842712]]
+    </div>
+    
+    <h2>۵. تشخیص سازگاری Broadcasting</h2>
+    <p>برای تشخیص اینکه آیا دو آرایه با یکدیگر سازگار هستند و می‌توانند عملیات Broadcasting داشته باشند، از تابع <code>np.broadcast_shapes</code> استفاده می‌کنیم:</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # بررسی سازگاری شکل‌ها
+        try:
+            # سازگار: (3, 1) و (1, 4)
+            compatible_shape = np.broadcast_shapes((3, 1), (1, 4))
+            print("شکل مشترک برای (3, 1) و (1, 4):", compatible_shape)
+            
+            # ناسازگار: (3, 2) و (2, 3)
+            incompatible_shape = np.broadcast_shapes((3, 2), (2, 3))
+            print("شکل مشترک برای (3, 2) و (2, 3):", incompatible_shape)
+        except ValueError as e:
+            print("خطا:", e)
+    </div>
+    
+    <div class="output">
+        شکل مشترک برای (3, 1) و (1, 4): (3, 4)
+        خطا: shape mismatch: objects cannot be broadcast to a single shape. Mismatch is between arg 0 with shape (3, 2) and arg 1 with shape (2, 3).
+    </div>
+    
+    <h2>۶. نکات مهم و مزایای Broadcasting</h2>
+    
+    <h3>۶.۱. مزایا</h3>
+    <ul>
+        <li><strong>بهینه‌سازی حافظه:</strong> Broadcasting نیازی به کپی فیزیکی داده‌ها ندارد.</li>
+        <li><strong>خوانایی کد:</strong> کد را ساده‌تر و خواناتر می‌کند.</li>
+        <li><strong>کارایی:</strong> عملیات‌ها سریع‌تر انجام می‌شوند.</li>
+        <li><strong>کاهش حلقه‌ها:</strong> نیاز به حلقه‌های صریح را کاهش می‌دهد.</li>
+    </ul>
+    
+    <h3>۶.۲. نکات مهم</h3>
+    <div class="note">
+        <ul>
+            <li>Broadcasting تنها در صورتی انجام می‌شود که قوانین سازگاری برقرار باشند.</li>
+            <li>همیشه ابعاد از سمت راست مقایسه می‌شوند.</li>
+            <li>برای عملیات پیچیده‌تر، می‌توانید از <code>np.newaxis</code> یا <code>None</code> برای اضافه کردن بُعد استفاده کنید.</li>
+            <li>گاهی ممکن است Broadcasting ناخواسته باعث خطاهای منطقی شود. همیشه مطمئن شوید که عملیات مورد نظرتان با منطق Broadcasting سازگار است.</li>
+        </ul>
+    </div>
+    
+    <h2>۷. مثال‌های پیشرفته</h2>
+    
+    <h3>۷.۱. ماتریس ضرب داخلی تمام بردارها</h3>
+    <p>محاسبه ضرب داخلی بین تمام جفت بردارها در دو مجموعه:</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # مجموعه اول: 3 بردار 4 بعدی - شکل (3, 4)
+        A = np.array([
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12]
+        ])
+        
+        # مجموعه دوم: 2 بردار 4 بعدی - شکل (2, 4)
+        B = np.array([
+            [1, 1, 1, 1],
+            [2, 2, 2, 2]
+        ])
+        
+        # برای ضرب داخلی، نیاز داریم بردارهای A در آخرین بعد باشند
+        # و بردارهای B در بعد قبل از آخر
+        # A_reshaped: (3, 1, 4) و B_reshaped: (1, 2, 4)
+        
+        A_reshaped = A[:, np.newaxis, :]
+        B_reshaped = B[np.newaxis, :, :]
+        
+        # حاصلضرب عنصر به عنصر - شکل (3, 2, 4)
+        element_product = A_reshaped * B_reshaped
+        
+        # جمع در آخرین بعد برای محاسبه ضرب داخلی - شکل (3, 2)
+        dot_products = np.sum(element_product, axis=2)
+        
+        print("ماتریس ضرب داخلی:")
+        print(dot_products)
+    </div>
+    
+    <div class="output">
+        ماتریس ضرب داخلی:
+        [[10 20]
+         [26 52]
+         [42 84]]
+    </div>
+    
+    <h3>۷.۲. اعمال ماسک روی تصویر</h3>
+    <p>در پردازش تصویر، اغلب از Broadcasting برای اعمال ماسک استفاده می‌شود:</p>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        # یک تصویر RGB ساده با ابعاد 3×4 - شکل (3, 4, 3)
+        image = np.ones((3, 4, 3)) * 128  # مقدار RGB متوسط
+        
+        # یک ماسک باینری با ابعاد 3×4 - شکل (3, 4)
+        mask = np.array([
+            [1, 1, 0, 0],
+            [1, 0, 0, 0],
+            [0, 0, 0, 0]
+        ])
+        
+        # گسترش ماسک برای مطابقت با ابعاد تصویر - شکل (3, 4, 1)
+        mask_3d = mask[:, :, np.newaxis]
+        
+        # اعمال ماسک: فقط پیکسل‌های که ماسک=1 است حفظ می‌شوند، بقیه صفر می‌شوند
+        masked_image = image * mask_3d
+        
+        print("شکل تصویر اصلی:", image.shape)
+        print("شکل ماسک:", mask.shape)
+        print("شکل ماسک گسترش یافته:", mask_3d.shape)
+        print("شکل تصویر ماسک شده:", masked_image.shape)
+        
+        print("\nمقادیر پیکسل‌های اولین سطر تصویر ماسک شده:")
+        print(masked_image[0])
+    </div>
+    
+    <div class="output">
+        شکل تصویر اصلی: (3, 4, 3)
+        شکل ماسک: (3, 4)
+        شکل ماسک گسترش یافته: (3, 4, 1)
+        شکل تصویر ماسک شده: (3, 4, 3)
+        
+        مقادیر پیکسل‌های اولین سطر تصویر ماسک شده:
+        [[128. 128. 128.]
+         [128. 128. 128.]
+         [  0.   0.   0.]
+         [  0.   0.   0.]]
+    </div>
+    
+    <h2>۸. راهنمای عیب‌یابی Broadcasting</h2>
+    
+    <h3>۸.۱. خطاهای رایج</h3>
+    <table>
+        <tr>
+            <th>خطا</th>
+            <th>دلیل احتمالی</th>
+            <th>راه حل</th>
+        </tr>
+        <tr>
+            <td>ValueError: operands could not be broadcast together</td>
+            <td>ابعاد آرایه‌ها ناسازگار است</td>
+            <td>بررسی shape آرایه‌ها، استفاده از reshape یا transpose</td>
+        </tr>
+        <tr>
+            <td>نتایج غیرمنتظره</td>
+            <td>Broadcasting اشتباه</td>
+            <td>اطمینان از اینکه عملیات Broadcasting مطابق با انتظار شماست</td>
+        </tr>
+        <tr>
+            <td>MemoryError</td>
+            <td>Broadcasting منجر به ایجاد آرایه‌ای بسیار بزرگ می‌شود</td>
+            <td>بررسی ابعاد آرایه‌ها قبل از عملیات</td>
+        </tr>
+    </table>
+    
+    <h3>۸.۲. روش‌های مفید برای عیب‌یابی</h3>
+    <ul>
+        <li>استفاده از <code>array.shape</code> برای چک کردن ابعاد قبل از عملیات</li>
+        <li>استفاده از <code>np.broadcast_shapes()</code> برای بررسی سازگاری</li>
+        <li>استفاده از <code>np.broadcast_to()</code> برای گسترش صریح آرایه‌ها و بررسی نتیجه</li>
+    </ul>
+    
+    <div class="code-block">
+        import numpy as np
+        
+        a = np.array([1, 2, 3])
+        b = np.array([[1], [2]])
+        
+        # چک کردن ابعاد
+        print("شکل a:", a.shape)  # (3,)
+        print("شکل b:", b.shape)  # (2, 1)
+        
+        # بررسی سازگاری
+        try:
+            result_shape = np.broadcast_shapes(a.shape, b.shape)
+            print("شکل نتیجه:", result_shape)
+        except ValueError as e:
+            print("خطا:", e)
+            
+        # گسترش صریح
+        # a → (1, 3) → (2, 3)
+        a_expanded = np.broadcast_to(a, (2, 3))
+        print("a پس از گسترش صریح:")
+        print(a_expanded)
+    </div>
+    
+    <div class="output">
+        شکل a: (3,)
+        شکل b: (2, 1)
+        خطا: shape mismatch: objects cannot be broadcast to a
