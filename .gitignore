@@ -170,4 +170,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-/doc/Processing data/datasets
+/doc/Processing data/Teacher
+/doc/python/Teacher
