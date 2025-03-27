@@ -171,8 +171,3 @@ cython_debug/
 .pypirc
 
 # Custom
-my_logs
-/doc/Processing data/datasets
-datasets
-dataset
-/02_Ml/Unsupervised/project
