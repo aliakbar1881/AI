@@ -1,0 +1,80 @@
+<mujoco model="SCARA Robot - Stable Pick and Place">
+  <compiler angle="radian" inertiafromgeom="true"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="RK4" solver="PGS" iterations="100"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3"/>
+  </visual>
+
+  <asset>
+    <texture type="2d" name="grid" builtin="checker" rgb1=".8 .8 .8" rgb2=".5 .5 .5" width="200" height="200"/>
+    <material name="mat" texture="grid" texrepeat="10 10" texuniform="true"/>
+    <material name="blue" rgba="0.2 0.2 0.8 1"/>
+    <material name="red" rgba="0.8 0.2 0.2 1"/>
+  </asset>
+
+  <worldbody>
+    <geom name="floor" type="plane" pos="0 0 0" size="2 2 0.1" material="mat" friction="0.8 0.1 0.1"/>
+
+    <body name="conveyor_belt" pos="1.0 0 0">
+      <geom name="belt" type="box" size="0.8 0.3 0.02" material="blue" contype="1" conaffinity="1"/>
+    </body>
+
+    <body name="base" pos="0 0 0.5">
+      <geom name="base_geom" type="cylinder" size="0.1 0.1" rgba="0.5 0.5 0.5 1"/>
+
+      <joint name="shoulder_joint" type="hinge" axis="0 0 1" pos="0 0 0" limited="true" range="-2.5 2.5"/>
+      <body name="link1" pos="0 0 0">
+        <geom name="link1_geom" type="cylinder" fromto="0 0 0 0.5 0 0" size="0.05" rgba="0.7 0.7 0.7 1"/>
+
+        <joint name="elbow_joint" type="hinge" axis="0 0 1" pos="0.5 0 0" limited="true" range="-2.5 2.5"/>
+        <body name="link2" pos="0.5 0 0">
+          <geom name="link2_geom" type="cylinder" fromto="0 0 0 0.4 0 0" size="0.05" rgba="0.7 0.7 0.7 1"/>
+
+          <joint name="z_joint" type="slide" axis="0 0 1" pos="0.4 0 0" limited="true" range="0.1 0.4"/>
+          <body name="gripper_arm" pos="0.4 0 0">
+            <geom name="gripper_arm_geom" type="cylinder" fromto="0 0 0 0 0 -0.15" size="0.03" rgba="0.3 0.3 0.3 1"/>
+
+            <body name="gripper" pos="0 0 -0.15">
+              <site name="gripper_contact" pos="0 0 -0.03" size="0.01" group="3"/>
+
+              <joint name="gripper_open" type="slide" axis="1 0 0" limited="true" range="-0.04 0.04"/>
+
+              <body name="left_finger_body" pos="0 -0.06 0">
+                <geom name="left_finger" type="box" size="0.01 0.04 0.02" material="red"/>
+              </body>
+
+              <body name="right_finger_body" pos="0 0.06 0">
+                <geom name="right_finger" type="box" size="0.01 0.04 0.02" material="red"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+
+    <body name="part_to_move" pos="0.3 0.4 0.62">
+      <geom name="part" type="cylinder" size="0.03 0.02" rgba="0.1 0.8 0.1 1" mass="0.1" contype="1" conaffinity="1"/>
+      <freejoint name="part_joint"/>
+    </body>
+
+    <site name="target_place" pos="1.0 0 0.05" size="0.005" rgba="1 0 0 1"/>
+  </worldbody>
+
+  <!-- Actuators -->
+  <actuator>
+    <motor name="shoulder_motor" joint="shoulder_joint" gear="100" ctrlrange="-20 20"/>
+    <motor name="elbow_motor" joint="elbow_joint" gear="100" ctrlrange="-20 20"/>
+    <motor name="z_motor" joint="z_joint" gear="50" ctrlrange="-10 10"/>
+    <motor name="gripper_motor" joint="gripper_open" gear="10" ctrlrange="-1 1"/>
+  </actuator>
+
+  <!-- Sensors -->
+  <sensor>
+    <jointpos name="shoulder_pos" joint="shoulder_joint"/>
+    <jointpos name="elbow_pos" joint="elbow_joint"/>
+    <jointpos name="z_pos" joint="z_joint"/>
+    <framepos name="gripper_pos" objtype="site" objname="gripper_contact"/>
+    <touch name="touch_sensor" site="gripper_contact"/>
+  </sensor>
+</mujoco>
