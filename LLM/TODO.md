@@ -1,12 +1,29 @@
-## Directory: Generative_AI_LLMs
-## Topics that must be covered
-- Prompt Engineering: Zero-shot, Few-shot (in-context examples), Chain-of-Thought (CoT), Tree-of-Thoughts (ToT), Self-Consistency
-- Parameter-Efficient Fine-Tuning (PEFT): LoRA (Low-Rank Adaptation), QLoRA (quantized LoRA), Adapters, Prefix Tuning
-- Retrieval-Augmented Generation (RAG): Indexing (chunking), Retrieval (Dense vs. Sparse), Generation (context injection)
-- Advanced RAG: HyDE (Hypothetical Document Embeddings), RAPTOR (tree-based retrieval), Self-RAG (reflective), Multi-Query (diverse perspectives)
-- LLM Frameworks: LangChain (Chains, Memory, Callbacks), LlamaIndex (Data Agents, Query Engines, Document Management)
-- AI Agents: ReAct (Reasoning + Acting), Tool-calling (Function calling), Multi-agent collaboration (CrewAI, AutoGen, Swarm)
-- Embedding Models: SBERT (sentence transformers), Instructor (task-specific), Voyager, OpenAI text-embedding models
-- Vector Databases: Chroma (lightweight), Pinecone (managed), Weaviate (graph-based), Qdrant, FAISS (Facebook similarity search)
-- Model Compression: Quantization (GPTQ, AWQ, GGUF/GGML), Pruning, Distillation (teacher-student)
-- Deployment: vLLM, TGI (Text Generation Inference), Ollama for local serving
+Topics that must be covered
+
+    What will be covered in this journey? (Large Language Models from architecture to deployment)
+
+    Language Model Fundamentals (Autoregressive vs. masked LMs, perplexity)
+
+    Transformer Architecture Deep Dive (Self-attention, multi-head attention, positional encoding)
+
+    Encoder-only Models (BERT, RoBERTa, ALBERT — MLM, NSP, fine-tuning)
+
+    Decoder-only Models (GPT series — autoregressive generation, in-context learning)
+
+    Encoder-Decoder Models (T5, BART — text-to-text framework)
+
+    Scaling Laws (Model size, dataset size, compute — Kaplan & Chinchilla laws)
+
+    Prompt Engineering (Zero-shot, few-shot, Chain-of-Thought, Tree-of-Thoughts)
+
+    Parameter-Efficient Fine-Tuning (LoRA, QLoRA, Adapters, Prefix Tuning)
+
+    Retrieval-Augmented Generation (RAG — indexing, retrieval, generation)
+
+    LLM Frameworks (LangChain, LlamaIndex, DSPy)
+
+    Alignment & Safety (RLHF, Constitutional AI, prompt injection prevention)
+
+    Evaluation (Benchmarks — GLUE, SuperGLUE, MMLU, HumanEval; metrics — BLEU, ROUGE, METEOR)
+
+    Deployment (vLLM, TGI, Ollama, quantization for local serving)

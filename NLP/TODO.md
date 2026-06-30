@@ -1,12 +1,25 @@
-## Directory: Natural_Language_Processing
-## Topics that must be covered
-- Text Preprocessing: Tokenization (word/subword/character), Stemming (Porter), Lemmatization, Stopwords removal
-- Classical NLP: Bag-of-Words (BoW), TF-IDF, N-grams (for sequence context), Cosine Similarity
-- Word Embeddings: Word2Vec (CBOW vs. Skip-gram), GloVe (global co-occurrence), FastText (subword information)
-- Sequence Modeling: RNNs (vanishing gradient), LSTMs (gates: input/forget/output), GRUs (simpler gating), Bidirectional RNNs
-- Sequence-to-Sequence (Seq2Seq): Encoder-Decoder architecture, Teacher Forcing, Greedy vs. Beam Search decoding
-- Attention Mechanism: Bahdanau (additive) and Luong (multiplicative) attention - Aligning input-output
-- The Transformer: Self-Attention (Scaled Dot-Product), Multi-Head Attention, Positional Encoding (sin/cos), Feed-Forward networks, Layer Norm
-- BERT (Encoder-only): Masked Language Modeling (MLM), Next Sentence Prediction (NSP), Fine-tuning for text classification, NER, and QA
-- GPT (Decoder-only): Autoregressive language modeling, In-context learning, Zero-shot/Few-shot prompting
-- Modern LLM advances: Flash Attention, Rotary Positional Embeddings (RoPE), Grouped Query Attention (GQA)
+Topics that must be covered
+
+    What will be covered in this journey? (Natural Language Processing from text to understanding)
+
+    Text Preprocessing (Tokenization, stemming, lemmatization, stopwords removal)
+
+    Classical NLP (Bag-of-Words, TF-IDF, N-grams, cosine similarity)
+
+    Word Embeddings (Word2Vec — CBOW/Skip-gram, GloVe, FastText)
+
+    Sequence Modeling (RNNs, LSTMs, GRUs, Bidirectional RNNs)
+
+    Sequence-to-Sequence (Encoder-Decoder, Teacher Forcing, Greedy vs. Beam Search)
+
+    Attention Mechanism (Bahdanau/Luong attention, context vectors)
+
+    Transformers (Self-attention, multi-head attention, positional encoding)
+
+    BERT & Fine-tuning (Masked LM, NSP, fine-tuning for classification/QA/NER)
+
+    GPT & Autoregressive Models (In-context learning, zero-shot/few-shot)
+
+    Modern Advances (Flash Attention, RoPE, Grouped Query Attention)
+
+    Evaluation Metrics (BLEU, ROUGE, METEOR, Perplexity, MMLU)

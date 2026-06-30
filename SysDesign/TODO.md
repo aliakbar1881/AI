@@ -1,8 +1,25 @@
-## Directory: System_Design
-## Topics that must be covered
-- Requirements Gathering: Defining Functional vs. Non-functional requirements (latency, throughput, availability)
-- Recommendation Systems: Collaborative Filtering (user-user/item-item), Content-based filtering, Hybrid approaches, Two-Tower neural models, Ranking (LambdaMART)
-- Search Engines: Inverted Indexing (BM25) vs. Dense Retrieval (vector search), Hybrid search (combining sparse + dense), Reranking
-- Conversational Chatbots: Dialogue state management, Memory (short-term vs. long-term), Tool integration, Graceful fallback strategies
-- Inference Architectures: Batch inference (offline, nightly jobs) vs. Real-time/Online inference (sub-100ms latency)
-- Data Pipelines: ETL (Extract, Transform, Load) vs. ELT, Streaming pipelines using Kafka/Kinesis for feeding real-time features
+Topics that must be covered
+
+    What will be covered in this journey? (Designing scalable, production-grade AI systems)
+
+    Requirements Gathering (Functional vs. non-functional requirements, latency, throughput, availability)
+
+    Recommendation Systems (Collaborative filtering, content-based, hybrid, Two-Tower models, ranking)
+
+    Search Engines (Inverted indexing — BM25, dense retrieval — vector search, hybrid search, reranking)
+
+    Conversational Chatbots (Dialogue state management, memory, tool integration, fallback strategies)
+
+    Inference Architectures (Batch inference vs. real-time/online inference)
+
+    Data Pipelines (ETL vs. ELT, streaming — Kafka/Kinesis for real-time features)
+
+    Model Serving (Online vs. offline, A/B testing, canary deployments)
+
+    System Trade-offs (Consistency vs. availability, cost vs. latency)
+
+    Scalability (Horizontal vs. vertical scaling, load balancing, caching)
+
+    Fault Tolerance (Retries, circuit breakers, fallback mechanisms)
+
+    Security (Authentication, authorization, data encryption, API security)

@@ -1,0 +1,11 @@
+- What will be covered in this journey? (Foundations of intelligent agent design)
+- Agents and Environments (Definition, properties, and types of environments)
+- Rationality and Performance Measures (Ideal rationality vs. bounded rationality)
+- PEAS Framework (Performance, Environment, Actuators, Sensors) for agent specification
+- Simple Reflex Agents (Condition-action rules)
+- Model-Based Reflex Agents (Internal state and world modeling)
+- Goal-Based Agents (Search and planning toward objectives)
+- Utility-Based Agents (Maximizing expected utility)
+- Learning Agents (Performance element, learning element, critic, problem generator)
+- Multi-Agent Systems (Cooperative vs. competitive agents, communication protocols)
+- Agent Architectures (Deliberative, reactive, and hybrid architectures — e.g., BDI, subsumption architecture)

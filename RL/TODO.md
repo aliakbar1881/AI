@@ -1,11 +1,27 @@
-## Directory: Reinforcement_Learning
-## Topics that must be covered
-- Core Concepts: Agent, Environment, State, Action, Reward, Discount factor (Gamma), Markov Decision Process (MDP)
-- Bellman Equations: State-value function V(s), Action-value function Q(s,a), Optimality equations
-- Dynamic Programming: Policy Iteration (evaluation + improvement), Value Iteration (direct optimization)
-- Monte Carlo Methods: First-visit MC, Every-visit MC prediction, Exploring starts for control
-- Temporal Difference (TD) Learning: TD(0) prediction, SARSA (On-policy), Q-Learning (Off-policy - the core breakthrough)
-- Deep Q-Networks (DQN): Using neural networks as function approximators, Experience Replay (breaking correlation), Target Networks (stable training), Double DQN
-- Policy Gradients: REINFORCE algorithm (Monte Carlo policy gradient), Baseline subtraction for variance reduction
-- Advanced Actor-Critic: A2C (Synchronous), A3C (Asynchronous), PPO (Proximal Policy Optimization - clipping objective), SAC (Soft Actor-Critic - entropy maximization)
-- Exploration vs. Exploitation: Epsilon-greedy, UCB, Boltzmann exploration
+Topics that must be covered
+
+    What will be covered in this journey? (Reinforcement Learning from MDPs to deep policy optimization)
+
+    Core Concepts (Agent, environment, state, action, reward, discount factor, MDP)
+
+    Bellman Equations (V-function, Q-function, optimality equations)
+
+    Dynamic Programming (Policy iteration, value iteration)
+
+    Monte Carlo Methods (First-visit/Every-visit MC, exploring starts)
+
+    Temporal Difference Learning (TD(0), SARSA — on-policy, Q-Learning — off-policy)
+
+    Deep Q-Networks (DQN — experience replay, target networks, Double DQN)
+
+    Policy Gradients (REINFORCE algorithm, baseline subtraction)
+
+    Actor-Critic Methods (A2C, A3C, PPO — clipping objective, SAC — entropy maximization)
+
+    Exploration vs. Exploitation (Epsilon-greedy, UCB, Boltzmann exploration)
+
+    Reward Engineering (Shaping, sparse rewards, intrinsic motivation)
+
+    Multi-Agent RL (Cooperative, competitive, communication)
+
+    Applications (Game playing — AlphaGo/AlphaZero, robotics, autonomous driving)

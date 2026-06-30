@@ -1,9 +1,29 @@
-## Directory: AI_Ethics_Safety
-## Topics that must be covered
-- Fairness & Bias: Understanding demographic bias, Fairness metrics (Demographic Parity, Equalized Odds, Individual Fairness), Bias detection tools (AIF360, Fairlearn)
-- Explainable AI (XAI): SHAP (Shapley additive explanations - game theory), LIME (Local interpretable model-agnostic explanations), Integrated Gradients
-- Privacy: Differential Privacy (adding calibrated noise), Federated Learning (training across decentralized data), Homomorphic Encryption (computing on encrypted data)
-- Robustness: Adversarial attacks (FGSM - Fast Gradient Sign Method, PGD - Projected Gradient Descent), Defenses (Adversarial training, input sanitization)
-- AI Alignment: RLHF (Reinforcement Learning from Human Feedback - used in ChatGPT), Constitutional AI
-- Safety: Prompt Injection prevention, Guardrails (NeMo Guardrails, Guardrails AI) to restrict model outputs
-- Transparency: Model cards, Data statements, and documenting limitations/failures
+Topics that must be covered
+
+    What will be covered in this journey? (Building AI that is fair, interpretable, and trustworthy)
+
+    Fairness & Bias (Demographic parity, equalized odds, individual fairness, bias detection)
+
+    Fairness Mitigation (Pre-processing, in-processing, post-processing techniques)
+
+    Explainable AI (XAI) Overview (Why interpretability matters in high-stakes decisions)
+
+    SHAP (Shapley Additive Explanations — game-theoretic approach)
+
+    LIME (Local Interpretable Model-agnostic Explanations)
+
+    Integrated Gradients (Attribution methods for deep networks)
+
+    Saliency Maps (Grad-CAM, Grad-CAM++, Guided Backpropagation)
+
+    Counterfactual Explanations (What-if analysis, minimal changes to flip outcomes)
+
+    Model Cards & Data Statements (Documenting model limitations and intended use)
+
+    Privacy in AI (Differential Privacy, Federated Learning, Homomorphic Encryption)
+
+    Robustness (Adversarial attacks — FGSM, PGD; defenses — adversarial training)
+
+    AI Safety & Alignment (RLHF, Constitutional AI, value alignment, AI governance)
+
+    Regulatory Frameworks (GDPR, EU AI Act, algorithmic accountability)
