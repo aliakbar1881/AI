@@ -1,0 +1,23 @@
+## Topics that must be covered
+- Data Collection: Web Scraping (BeautifulSoup, Selenium), REST APIs, Public datasets (Kaggle, HF Datasets)
+- Data Storage: Reading/writing CSV, JSON, Parquet, and connecting to SQL databases (SQLite, PostgreSQL)
+- Exploratory Data Analysis (EDA): Summary statistics, Distribution histograms, Box plots for outliers
+- EDA: Correlation matrices, Pair plots, and identifying feature relationships
+- Data Cleaning: Handling missing values (Mean/Median imputation, KNN imputation, dropping)
+- Data Cleaning: Detecting and treating outliers (IQR method, Z-score, Winsorization)
+- Feature Engineering: Encoding categorical variables (One-Hot, Label, Target Encoding)
+- Feature Engineering: Feature scaling (Standardization, MinMax Normalization, Robust Scaler)
+- Feature Engineering: Creating interaction features, Polynomial features, and Domain-specific features
+- Dimensionality Reduction: PCA (Principal Component Analysis), t-SNE, UMAP for visualization
+- Data Splitting: Train/Validation/Test splits, Stratified sampling (for classification), Time-series splits
+- Supervised Learning - Regression: Linear Regression, Ridge (L2), Lasso (L1), ElasticNet
+- Regression evaluation: MSE, MAE, RMSE, R-squared, Adjusted R-squared
+- Supervised Learning - Classification: Logistic Regression, Support Vector Machines (SVM - Hard/Soft margin, Kernels)
+- Classification evaluation: Accuracy, Precision, Recall, F1-Score, Confusion Matrix, ROC-AUC
+- Decision Trees: Gini Impurity, Entropy, Information Gain, Pruning (pre/post), Max depth
+- Ensemble Methods - Bagging: Random Forest (feature randomness), Extra Trees
+- Ensemble Methods - Boosting: AdaBoost, Gradient Boosting Machines (GBM), XGBoost, LightGBM, CatBoost
+- Unsupervised Learning - Clustering: K-Means (Elbow method, Silhouette score), Hierarchical (Dendrograms), DBSCAN
+- Unsupervised Learning - Anomaly Detection: Isolation Forest, One-Class SVM
+- Model Validation: Cross-Validation (K-Fold, Stratified K-Fold, Leave-One-Out)
+- Bias-Variance Tradeoff: Diagnosing underfitting vs. overfitting using learning curves
